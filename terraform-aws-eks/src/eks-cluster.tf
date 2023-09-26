@@ -1,11 +1,10 @@
-# EKS Cluster
+# Creating EKS Cluster
 resource "aws_eks_cluster" "this" {
   name     = "${var.project}-cluster"
   role_arn = aws_iam_role.cluster.arn
   version  = "1.25"
 
   vpc_config {
-    # security_group_ids      = [aws_security_group.eks_cluster.id, aws_security_group.eks_nodes.id] # already applied to subnet
     subnet_ids              = flatten([aws_subnet.public[*].id, aws_subnet.private[*].id])
     endpoint_private_access = true
     endpoint_public_access  = true
@@ -21,8 +20,6 @@ resource "aws_eks_cluster" "this" {
   ]
 }
 
-
-# EKS Cluster IAM Role
 resource "aws_iam_role" "cluster" {
   name = "${var.project}-Cluster-Role"
 
@@ -47,8 +44,6 @@ resource "aws_iam_role_policy_attachment" "cluster_AmazonEKSClusterPolicy" {
   role       = aws_iam_role.cluster.name
 }
 
-
-# EKS Cluster Security Group
 resource "aws_security_group" "eks_cluster" {
   name        = "${var.project}-cluster-sg"
   description = "Cluster communication with worker nodes"
