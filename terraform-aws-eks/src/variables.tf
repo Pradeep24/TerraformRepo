@@ -43,7 +43,7 @@ variable "tags" {
   type        = map(string)
   default = {
     "Project"     = "TerraformEKSWorkshop"
-    "Environment" = "Development"
-    "Owner"       = "Ashish Patel"
+    "Environment" = "DevOps Team"
+    "Owner"       = "Pradeep Kumar Neratui"
   }
 }
