@@ -55,7 +55,6 @@ resource "aws_internet_gateway" "this" {
 }
 
 # Route Table(s)
-# Route the public subnet traffic through the IGW
 resource "aws_route_table" "main" {
   vpc_id = aws_vpc.this.id
 
